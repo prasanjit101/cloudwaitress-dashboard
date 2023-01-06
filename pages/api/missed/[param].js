@@ -3,7 +3,7 @@ import { addtag, createGhlContact, createTag, getcontact } from "../../../servic
 
 // check if the locationId exists in database
 export default async function type(req, res) {
-    res.sendStatus(200);
+    res.status(200).send("200");
     console.log('Request body from twilio flow : ', req.body);
     /* req.body = {
         "tags":"text_back",
