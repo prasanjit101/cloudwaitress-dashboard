@@ -3,7 +3,7 @@ import { addtag, createGhlContact, createTag, getcontact } from "../../../servic
 
 // check if the locationId exists in database
 export default async function type(req, res) {
-    res.sendStatus(200);
+    res.status(200).send("200");
     console.log('Request body from twilio flow : ', req.body);
     /* req.body = {
         "tags":"text_back",
@@ -24,12 +24,12 @@ export default async function type(req, res) {
             return;
         }
         var v1api = loc.ghlv1api;
-        try {
-            await createTag(tags, v1api);
-        } catch (e) {
-            console.log("Tag error on attempt : ", e.message);
-        }
-        await addtag(contact_id, tags, v1api);
+        // try {
+        //     await createTag(tags, v1api);
+        // } catch (e) {
+        //     console.log("Tag error on attempt : ", e.message);
+        // }
+        // await addtag(contact_id, tags, v1api);
     } catch (e) {
         console.log(e.message);
         return;
