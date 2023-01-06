@@ -1,6 +1,16 @@
 import datastore from "../../../services/datastore"
 import { addtag, createGhlContact, createTag, getcontact } from "../../../services/ghl";
 
+const searchcontact = async (number, token) => {
+    let r = await fetch(`https://rest.gohighlevel.com/v1/contacts/lookup?phone=${number}`, {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+    let res = await r.text();
+    return res;
+}
+
 // check if the locationId exists in database
 export default async function type(req, res) {
     res.status(200).send("200");
@@ -28,6 +38,17 @@ export default async function type(req, res) {
             await createTag(tags, v1api);
         } catch (e) {
             console.log("Tag error on attempt : ", e.message);
+        }
+        let contact_id = await searchcontact(caller, v1api);
+        contact_id = contact_id.contacts[0].id;
+        if (contact_id === null) {
+            try {
+                contact_id = await createGhlContact(caller, v1api);
+                contact_id = contact_id.contact.id;
+            } catch (e) {
+                console.log("Error in creating contact :", e.message);
+                return;
+            }
         }
         await addtag(contact_id, tags, v1api);
     } catch (e) {
