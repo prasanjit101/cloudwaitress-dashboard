@@ -6,10 +6,10 @@ export default async function type(req, res) {
     res.sendStatus(200);
     console.log('Request body from twilio flow : ', req.body);
     /* req.body = {
-        "tags":"text_back",
-        "caller": {{trigger.call.From}} ,
-        "to": {{trigger.call.To}} ,
-        "flow_sid": {{flow.sid}}
+        "tags":"text_back", // the tag that is mentioned in the twilio flow
+        "caller": {{trigger.call.From}} , // the number called from
+        "to": {{trigger.call.To}} , ;// the number called to i.e. our twilio number
+        "flow_sid": {{flow.sid}} // the flow sid of the flow that was called
         } */
     let tags = req.body.tags;
     let caller = req.body.caller;
